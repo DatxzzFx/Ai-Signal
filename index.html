@@ -1,221 +1,39 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XAUUSD AI Auto Signal</title>
+    <title>XAUUSD AI TERMINAL</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo">
-                <h1>🤖 XAUUSD AI Signal</h1>
-                <p>Auto Trading Signal System</p>
+    <div class="terminal">
+        <div class="header">XAUUSD AI AGENT <span id="status">● LIVE</span></div>
+        
+        <div class="display">
+            <div class="price-box">
+                <small>CURRENT PRICE</small>
+                <h1 id="price">0.00</h1>
             </div>
-            <div class="status">
-                <span id="status-indicator" class="status-dot"></span>
-                <span id="status-text">Connecting...</span>
+
+            <div id="signal-box" class="signal-box">
+                <div id="action" class="action-text">ANALYZING...</div>
+                <div class="raw-signal" id="raw-signal">TP : 0 SL : 0 ACTION</div>
             </div>
-        </header>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Signal Display -->
-            <section class="signal-section">
-                <div class="signal-card active" id="current-signal">
-                    <div class="signal-header">
-                        <h2>🎯 Current Signal</h2>
-                        <span class="time" id="signal-time">--:--:--</span>
-                    </div>
-                    
-                    <div class="signal-display">
-                        <div class="signal-type" id="signal-type">WAITING</div>
-                        <div class="signal-price" id="signal-price">$0.00</div>
-                    </div>
+            <div class="details">
+                <div class="col">TP: <span id="tp-val">--</span></div>
+                <div class="col">SL: <span id="sl-val">--</span></div>
+            </div>
+        </div>
 
-                    <div class="signal-details">
-                        <div class="detail-item">
-                            <label>📈 Take Profit (TP)</label>
-                            <div class="value" id="tp-value">--</div>
-                        </div>
-                        <div class="detail-item">
-                            <label>📉 Stop Loss (SL)</label>
-                            <div class="value" id="sl-value">--</div>
-                        </div>
-                        <div class="detail-item">
-                            <label>⚖️ Risk/Reward</label>
-                            <div class="value" id="rr-value">--</div>
-                        </div>
-                        <div class="detail-item">
-                            <label>💰 Risk Amount</label>
-                            <div class="value" id="risk-amount">--</div>
-                        </div>
-                    </div>
-
-                    <div class="signal-note">
-                        <p id="signal-note">🔄 Analyzing market data...</p>
-                    </div>
-
-                    <div class="signal-indicators">
-                        <div class="indicator">
-                            <span>RSI:</span>
-                            <span id="rsi-value">--</span>
-                        </div>
-                        <div class="indicator">
-                            <span>MACD:</span>
-                            <span id="macd-value">--</span>
-                        </div>
-                        <div class="indicator">
-                            <span>Trend:</span>
-                            <span id="trend-value">--</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Statistics -->
-            <section class="stats-section">
-                <div class="stat-card">
-                    <h3>📊 Today's Signals</h3>
-                    <p class="stat-number" id="today-signals">0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>✅ Win Rate</h3>
-                    <p class="stat-number" id="win-rate">0%</p>
-                </div>
-                <div class="stat-card">
-                    <h3>💵 Total Profit</h3>
-                    <p class="stat-number" id="total-profit">$0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>⏳ Active Trades</h3>
-                    <p class="stat-number" id="active-trades">0</p>
-                </div>
-            </section>
-
-            <!-- Chart -->
-            <section class="chart-section">
-                <div class="chart-header">
-                    <h2>📈 XAUUSD Price Chart (1H)</h2>
-                    <div class="chart-controls">
-                        <button onclick="changeTimeframe('1h')" class="btn-chart active">1H</button>
-                        <button onclick="changeTimeframe('4h')" class="btn-chart">4H</button>
-                        <button onclick="changeTimeframe('1d')" class="btn-chart">1D</button>
-                    </div>
-                </div>
-                <canvas id="priceChart"></canvas>
-            </section>
-
-            <!-- Signal History -->
-            <section class="history-section">
-                <h2>📋 Signal History</h2>
-                <div class="history-controls">
-                    <input type="text" id="search-signal" placeholder="Search signals..." class="search-input">
-                    <select id="filter-status" class="filter-select">
-                        <option value="">All Status</option>
-                        <option value="pending">Pending</option>
-                        <option value="win">Win</option>
-                        <option value="loss">Loss</option>
-                    </select>
-                </div>
-                <div class="history-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>⏰ Time</th>
-                                <th>📍 Signal</th>
-                                <th>💹 Entry</th>
-                                <th>📈 TP</th>
-                                <th>📉 SL</th>
-                                <th>⚖️ R:R</th>
-                                <th>✓ Status</th>
-                                <th>📝 Note</th>
-                            </tr>
-                        </thead>
-                        <tbody id="history-body">
-                            <tr>
-                                <td colspan="8" style="text-align: center;">⏳ Waiting for signals...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Settings -->
-            <section class="settings-section">
-                <h2>⚙️ Settings</h2>
-                <div class="settings-grid">
-                    <div class="setting-item">
-                        <label>💰 Risk per Trade (%)</label>
-                        <input type="number" id="risk-input" value="2" min="0.1" max="10" step="0.1">
-                    </div>
-                    <div class="setting-item">
-                        <label>⚖️ Min R:R Ratio</label>
-                        <input type="number" id="rr-input" value="2" min="1" max="5" step="0.5">
-                    </div>
-                    <div class="setting-item">
-                        <label>🔄 Update Interval (s)</label>
-                        <input type="number" id="interval-input" value="60" min="30" max="300" step="30">
-                    </div>
-                    <div class="setting-item">
-                        <label>
-                            <input type="checkbox" id="auto-trade" checked>
-                            🤖 Auto Trade Enabled
-                        </label>
-                    </div>
-                    <div class="setting-item">
-                        <label>
-                            <input type="checkbox" id="sound-alert" checked>
-                            🔔 Sound Alert
-                        </label>
-                    </div>
-                    <div class="setting-item">
-                        <label>
-                            <input type="checkbox" id="dark-mode" checked>
-                            🌙 Dark Mode
-                        </label>
-                    </div>
-                </div>
-                <div class="button-group">
-                    <button class="btn-save" onclick="saveSettings()">💾 Save Settings</button>
-                    <button class="btn-reset" onclick="resetSettings()">🔄 Reset</button>
-                </div>
-            </section>
-
-            <!-- API Status -->
-            <section class="api-status-section">
-                <h2>🔌 API Status</h2>
-                <div class="api-status-grid">
-                    <div class="api-item">
-                        <span>Alpha Vantage</span>
-                        <span id="api-av" class="status-badge">●</span>
-                    </div>
-                    <div class="api-item">
-                        <span>Vercel API</span>
-                        <span id="api-vercel" class="status-badge">●</span>
-                    </div>
-                    <div class="api-item">
-                        <span>Last Update</span>
-                        <span id="last-update">--:--:--</span>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Notification -->
-        <div id="notification" class="notification"></div>
-
-        <!-- Audio Alert -->
-        <audio id="alert-sound" preload="auto">
-            <source src="data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA==" type="audio/wav">
-        </audio>
+        <div class="footer">
+            AUTO-SYNC: <span id="timer">30</span>S
+        </div>
     </div>
 
-    <script src="js/ai-agent.js"></script>
-    <script src="js/chart.js"></script>
-    <script src="app.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/signal.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

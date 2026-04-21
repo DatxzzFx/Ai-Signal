@@ -1,0 +1,14 @@
+body { background: #000; color: #0f0; font-family: monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+.terminal { width: 350px; border: 1px solid #333; background: #050505; padding: 20px; border-radius: 5px; box-shadow: 0 0 20px rgba(0,255,0,0.1); }
+.header { border-bottom: 1px solid #333; padding-bottom: 10px; font-weight: bold; display: flex; justify-content: space-between; font-size: 12px; }
+#status { color: #0f0; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.display { padding: 20px 0; text-align: center; }
+.price-box h1 { font-size: 3rem; margin: 10px 0; color: #fff; }
+.signal-box { border: 1px solid #0f0; padding: 15px; margin: 20px 0; border-radius: 4px; }
+.action-text { font-size: 2.5rem; font-weight: bold; margin-bottom: 10px; }
+.raw-signal { background: #111; padding: 10px; font-size: 11px; color: #00d4ff; border-radius: 3px; }
+.details { display: flex; justify-content: space-between; font-size: 14px; }
+.footer { border-top: 1px solid #333; padding-top: 10px; font-size: 10px; color: #666; }
+.BUY { border-color: #0f0; color: #0f0; }
+.SELL { border-color: #f00; color: #f00; }
