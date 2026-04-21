@@ -2,7 +2,7 @@
   "version": 2,
   "buildCommand": "npm run build",
   "env": {
-    "ALPHA_VANTAGE_API_KEY": "@alpha_vantage_api_key"
+    "ALPHA_VANTAGE_API_KEY": "FAJYYN44RH92TFCS"
   },
   "functions": {
     "api/**/*.js": {
